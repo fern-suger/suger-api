@@ -1,0 +1,76 @@
+imports:
+  commons: commons.yml
+
+services:
+  http:
+    ReportService:
+      auth: true
+      base-path: /org/{orgId}
+      path-parameters:
+        orgId:
+          docs: Organization ID
+          type: string
+      endpoints:
+        getRevenueReport:
+          path: /revenueReport
+          method: POST
+          docs: >-
+            Get the revenue report of the given organization, product,
+            entitlement, or buyer.
+          display-name: Get the revenue report.
+          request:
+            body: GetRevenueReportParams
+          response: RevenueReport
+
+        getUsageReport:
+          path: /usageReport
+          method: POST
+          docs: >-
+            Get the daily usage report of the given entitlement, the default
+            timespan is lifetime.
+          display-name: Get the usage report.
+          request:
+            body: GetUsageReportParams
+          response: UsageReport
+
+types:
+  GetRevenueReportParams:
+    properties:
+      buyerID: optional<string>
+      entitlementID: optional<string>
+      organizationID: string
+      partner: string
+      productID: optional<string>
+      reportType: string
+      service: string
+  
+  RevenueReport:
+    properties:
+      buyerID: optional<string>
+      entitlementID: optional<string>
+      organizationID: optional<string>
+      partner: optional<string>
+      productID: optional<string>
+      reportDate: optional<string>
+      reportType: optional<string>
+      revenueRecords: optional<list<commons.RevenueRecord>>
+      service: optional<string>
+  
+  GetUsageReportParams:
+    properties:
+      entitlementID: string
+      organizationID: string
+  
+  UsageReport:
+    properties:
+      entitlementID: optional<string>
+      organizationID: optional<string>
+      reportDate: optional<string>
+      usageRecords: optional<list<EntitlementUsageRecord>>
+  
+  EntitlementUsageRecord:
+    properties:
+      amounts: optional<list<double>>
+      date: optional<string>
+      keys: optional<list<string>>
+      quantities: optional<list<double>>
