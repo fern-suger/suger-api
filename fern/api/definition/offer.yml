@@ -1,0 +1,85 @@
+imports:
+  commons: commons.yml
+
+services:
+  http:
+    OfferService:
+      auth: true
+      base-path: /org/{orgId}
+      path-parameters:
+        orgId:
+          docs: Organization ID
+          type: string      
+      endpoints:
+        getAll:
+          path: /offer
+          method: GET
+          display-name: List all offers under the organization
+          response: list<commons.WorkloadOffer>
+        
+        create:
+          path: /offer
+          method: POST
+          display-name: Create a private offer.
+          request: CreateOfferParams
+          response: commons.WorkloadOffer
+        
+        get:
+          path: /offer/{offerId}
+          method: GET
+          display-name: Get the offer.
+          path-parameters:
+            offerId:
+              docs: Offer ID
+              type: string
+          response: commons.WorkloadOffer
+        
+        delete:
+          path: /offer/{offerId}
+          method: DELETE
+          docs: >-
+            Currently only the offer with status = "CREATE_PENDING" or
+            "CREATE_FAILED" is allowed to be deleted.
+          display-name: Delete the offer.
+          path-parameters:
+            offerId:
+              docs: Offer ID
+              type: string
+          response: string
+        
+        getAllForCloudPartner:
+          path: /partner/{partner}/offer
+          method: GET
+          display-name: List all offers under the cloud partner.
+          path-parameters:
+            partner:
+              docs: Cloud Partner
+              type: string
+          response: list<commons.WorkloadOffer>
+        
+        getAllForProduct:
+          path: /product/{productId}/offer
+          method: GET
+          display-name: List all offers under the product.
+          path-parameters:
+            productId:
+              docs: Product ID
+              type: string
+          response: list<commons.WorkloadOffer>
+
+types:
+  CreateOfferParams:
+    properties:
+      creationTime: optional<string>
+      endTime: optional<string>
+      expireTime: optional<string>
+      externalID: optional<string>
+      id: optional<string>
+      info: commons.OfferInfo
+      name: string
+      offerType: optional<string>
+      organizationID: string
+      partner: string
+      productID: string
+      service: string
+      status: optional<string>

@@ -1,5 +1,6 @@
 name: api
-auth: bearer
-environments:
-  Production: https://api.suger.cloud/public
+display-name: Suger API
+auth: Bearer
 default-environment: Production
+environments: 
+  Production: http://www.suger.io

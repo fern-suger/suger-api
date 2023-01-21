@@ -1,0 +1,47 @@
+imports:
+  commons: commons.yml
+
+services:
+  http:
+    BuyerService:
+      auth: true
+      base-path: /org/{orgId}
+      path-parameters:
+        orgId:
+          docs: Organization ID
+          type: string
+      endpoints:
+        getAll:
+          path: /buyer
+          method: GET
+          display-name: List all buyers under the organization
+          response: list<commons.IdentityBuyer>
+        
+        get:
+          path: /buyer/{buyerId}
+          method: GET
+          display-name: Get the buyer
+          path-parameters:
+            buyerId:
+              docs: Buyer ID
+              type: string
+          response: commons.IdentityBuyer
+        
+        update:
+          path: /buyer/{buyerId}
+          method: PATCH
+          display-name: Update the name & description of the buyer
+          path-parameters:
+            buyerId:
+              docs: Buyer ID
+              type: string
+          request:
+            body: UpdateBuyerNameDescriptionParams
+          response: commons.IdentityBuyer
+types:
+  UpdateBuyerNameDescriptionParams:
+    properties:
+      description: optional<string>
+      id: optional<string>
+      name: optional<string>
+      organizationID: optional<string>

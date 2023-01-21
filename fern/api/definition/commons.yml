@@ -1,4 +1,981 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fern-api/fern/main/fern.schema.json
-
 types:
-  id: string
+  WorkloadEntitlement:
+    properties:
+      buyerID: optional<string>
+      creationTime: optional<string>
+      endTime: optional<string>
+      entitlementTermID: optional<string>
+      externalBuyerID: optional<string>
+      externalID: optional<string>
+      externalProductID: optional<string>
+      id: optional<string>
+      info: optional<EntitlementInfo>
+      lastUpdateTime: optional<string>
+      name: optional<string>
+      offerID: optional<string>
+      organizationID: optional<string>
+      partner: optional<string>
+      productID: optional<string>
+      service: optional<string>
+      startTime: optional<string>
+      status: optional<string>
+      type: optional<string>
+  
+  EntitlementInfo:
+    properties:
+      autoRenew: optional<boolean>
+      awsEntitlements: optional<list<Entitlement>>
+      azureSubscriptions: optional<list<AzureMarketplaceSubscription>>
+      collectableAmount: optional<double>
+      commits: optional<list<CommitDimension>>
+      currency: optional<string>
+      dimensions: optional<list<MeteringDimension>>
+      disbursedAmount: optional<double>
+      discount: optional<double>
+      eulaType: optional<string>
+      eulaUrl: optional<string>
+      gcpEntitlements: optional<list<GcpMarketplaceEntitlement>>
+      gcpPlans: optional<list<GcpPurchasePlan>>
+      invoicedAmount: optional<double>
+      paymentInstallments: optional<list<PaymentInstallment>>
+      refundCancelationPolicy: optional<string>
+      sellerNotes: optional<string>
+  
+  Entitlement:
+    properties:
+      customerIdentifier: optional<string>
+      dimension: optional<string>
+      expirationDate: optional<string>
+      productCode: optional<string>
+  
+  AzureMarketplaceSubscription:
+    properties:
+      allowedCustomerOperations: optional<list<string>>
+      autoRenew: optional<boolean>
+      beneficiary: optional<AzureADIdentifier>
+      created: optional<string>
+      fulfillmentId: optional<string>
+      id: optional<string>
+      isFreeTrial: optional<boolean>
+      isTest: optional<boolean>
+      lastModified: optional<string>
+      name: optional<string>
+      offerId: optional<string>
+      planId: optional<string>
+      publisherId: optional<string>
+      purchaser: optional<AzureADIdentifier>
+      quantity: optional<integer>
+      saasSubscriptionStatus: optional<string>
+      sandboxType: optional<string>
+      sessionId: optional<string>
+      sessionMode: optional<string>
+      storeFront: optional<string>
+      term: optional<AzureTerm>
+  
+  AzureADIdentifier:
+    properties:
+      buyerInfo: optional<AzureBuyerInfo>
+      companyInfo: optional<CompanyInfo>
+      emailId: optional<string>
+      objectId: optional<string>
+      puid: optional<string>
+      tenantId: optional<string>
+  
+  AzureBuyerInfo:
+    properties:
+      billingAccountId: optional<string>
+      customerId: optional<string>
+      firstName: optional<string>
+      lastName: optional<string>
+  
+  CompanyInfo:
+    properties:
+      addressLine1: optional<string>
+      addressLine2: optional<string>
+      city: optional<string>
+      country: optional<string>
+      emailDomain: optional<string>
+      name: optional<string>
+      postalCode: optional<string>
+      state: optional<string>
+  
+  AzureTerm:
+    properties:
+      chargeDuration: optional<string>
+      endDate: optional<string>
+      startDate: optional<string>
+      termUnit: optional<string>
+  
+  CommitDimension:
+    docs: >-
+      The commit dimension. There may be one or more commit dimensions defined
+      in single product, offer or entitlement.
+    properties:
+      category: optional<string>
+      description: optional<string>
+      key: optional<string>
+      length: optional<integer>
+      maximumUsers: optional<integer>
+      minimumUsers: optional<integer>
+      name: optional<string>
+      quantity: optional<integer>
+      rate: optional<double>
+      timeUnit: optional<string>
+      type: optional<string>
+      types: optional<list<string>>
+  
+  MeteringDimension:
+    docs: The dimension to meter usage in entitlement.
+    properties:
+      category: optional<string>
+      description: optional<string>
+      includedBaseQuantities: optional<list<IncludedBaseQuantity>>
+      key: optional<string>
+      name: optional<string>
+      rate: optional<double>
+      types: optional<list<string>>
+      usageCount: optional<UsageCount>
+      valueType: optional<string>
+  
+  IncludedBaseQuantity:
+    properties:
+      isInfinite: optional<boolean>
+      quantity: optional<double>
+      recurringUnit: optional<string>
+  
+  UsageCount:
+    properties:
+      creditCount: optional<double>
+      includedCount: optional<double>
+      reportedCount: optional<double>
+  
+  GcpMarketplaceEntitlement:
+    properties:
+      account: optional<string>
+      consumers: optional<list<GcpMarketplaceConsumer>>
+      createTime: optional<string>
+      id: optional<string>
+      inputProperties: optional<list<integer>>
+      messageToUser: optional<string>
+      name: optional<string>
+      newOfferDuration: optional<string>
+      newOfferEndTime: optional<string>
+      newPendingOffer: optional<string>
+      newPendingOfferDuration: optional<string>
+      newPendingPlan: optional<string>
+      newPlan: optional<string>
+      offer: optional<string>
+      offerDuration: optional<string>
+      offerEndTime: optional<string>
+      plan: optional<string>
+      product: optional<string>
+      productExternalName: optional<string>
+      provider: optional<string>
+      quoteExternalName: optional<string>
+      state: optional<string>
+      subscriptionEndTime: optional<string>
+      updateTime: optional<string>
+      usageReportingId: optional<string>
+  
+  GcpMarketplaceConsumer:
+    properties:
+      project: optional<string>
+  
+  GcpPurchasePlan:
+    properties:
+      name: optional<string>
+      priceInfo: optional<GcpCommerceProducerPriceInfo>
+      purchaseMode: optional<string>
+      title: optional<string>
+  
+  GcpCommerceProducerPriceInfo:
+    properties:
+      description: optional<string>
+      priceModel: optional<string>
+      subscriptionPlans: optional<list<GcpCommerceProducerPriceSubscription>>
+      usageFees: optional<list<GcpCommerceProducerPriceUsage>>
+  
+  GcpCommerceProducerPriceSubscription:
+    properties:
+      period: optional<string>
+      price: optional<GcpCommerceProducerPrice>
+      taxCategoryOverride: optional<string>
+  
+  GcpCommerceProducerPrice:
+    properties:
+      currencyCode: optional<string>
+      nanos: optional<integer>
+      units: optional<integer>
+  
+  GcpCommerceProducerPriceUsage:
+    properties:
+      displayQuantity: optional<integer>
+      metricId: optional<string>
+      priceTiers: optional<list<GcpCommerceProducerPriceTier>>
+      taxCategoryOverride: optional<string>
+  
+  GcpCommerceProducerPriceTier:
+    properties:
+      endUsageAmount: optional<double>
+      price: optional<GcpCommerceProducerPrice>
+      startUsageAmount: optional<double>
+  
+  PaymentInstallment:
+    properties:
+      amount: optional<double>
+      chargeOn: optional<string>
+  
+  IdentityBuyer:
+    properties:
+      creationTime: optional<string>
+      description: optional<string>
+      externalID: optional<string>
+      id: optional<string>
+      info: optional<BuyerInfo>
+      lastUpdateTime: optional<string>
+      name: optional<string>
+      organizationID: optional<string>
+      partner: optional<string>
+  
+  BuyerInfo:
+    properties:
+      awsBuyer: optional<AwsAccountIdentifier>
+      azureBuyer: optional<AzureADIdentifier>
+      collectableAmount: optional<double>
+      disbursedAmount: optional<double>
+      gcpBuyer: optional<GcpMarketplaceUserAccount>
+      invoicedAmount: optional<double>
+  
+  AwsAccountIdentifier:
+    properties:
+      awsAccountID: optional<string>
+      awsCustomerID: optional<string>
+      companyInfo: optional<CompanyInfo>
+      dataFeedAccountID: optional<string>
+  
+  GcpMarketplaceUserAccount:
+    properties:
+      approvals: optional<list<GcpMarketplaceUserAccountApproval>>
+      createTime: optional<string>
+      id: optional<string>
+      inputProperties: optional<list<integer>>
+      name: optional<string>
+      provider: optional<string>
+      state: optional<string>
+      updateTime: optional<string>
+      userInfo: optional<GcpUserInfo>
+  
+  GcpMarketplaceUserAccountApproval:
+    properties:
+      name: optional<string>
+      reason: optional<string>
+      state: optional<string>
+      updateTime: optional<string>
+  
+  GcpUserInfo:
+    properties:
+      roles: optional<list<string>>
+      user_identity: optional<string>
+  
+  WorkloadEntitlementTerm:
+    properties:
+      buyerID: optional<string>
+      commitAmount: optional<double>
+      creditAmount: optional<double>
+      endTime: optional<string>
+      entitlementID: optional<string>
+      entitlementInfo: optional<EntitlementInfo>
+      externalEntitlementID: optional<string>
+      id: optional<string>
+      info: optional<EntitlementTermInfo>
+      offerID: optional<string>
+      organizationID: optional<string>
+      partner: optional<string>
+      productID: optional<string>
+      service: optional<string>
+      startTime: optional<string>
+      usedCommitAmount: optional<double>
+      usedCreditAmount: optional<double>
+  
+  EntitlementTermInfo:
+    properties:
+      type: optional<string>
+  
+  ListUsageRecordGroupsResponse:
+    properties:
+      nextOffset: optional<integer>
+      usageRecordGroups: optional<list<MeteringUsageRecordGroup>>
+  
+  MeteringUsageRecordGroup:
+    properties:
+      creationTime: optional<string>
+      entitlementID: optional<string>
+      id: optional<string>
+      lastUpdateTime: optional<string>
+      organizationID: optional<string>
+      serialID: optional<integer>
+      status: optional<string>
+      usageRecordReportID: optional<string>
+  
+  MeteringUsageRecordReport:
+    properties:
+      creationTime: optional<string>
+      entitlementID: optional<string>
+      entitlementTermID: optional<string>
+      id: optional<string>
+      info: optional<MeteringUsageRecordReportInfo>
+      organizationID: optional<string>
+      productID: optional<string>
+  
+  MeteringUsageRecordReportInfo:
+    properties:
+      awsMeteringResponse: optional<BatchMeterUsageOutput>
+      azureMeteringResponse: optional<BatchUsageEventOkResponse>
+      commitAmount: optional<double>
+      creditAmount: optional<double>
+      endTime: optional<string>
+      gcpMeteringResponse: optional<ReportResponse>
+      startTime: optional<string>
+      usageRecordGroupIds: optional<list<string>>
+      usedCommitAmount: optional<double>
+      usedCommitAmountIncrement: optional<double>
+      usedCreditAmount: optional<double>
+      usedCreditAmountIncrement: optional<double>
+  
+  BatchMeterUsageOutput:
+    properties:
+      resultMetadata: optional<Metadata>
+      results: optional<list<UsageRecordResult>>
+      unprocessedRecords: optional<list<UsageRecord>>
+  
+  UsageRecordResult:
+    properties:
+      meteringRecordId: optional<string>
+      status: optional<string>
+      usageRecord: optional<UsageRecord>
+  
+  UsageRecord:
+    properties:
+      customerIdentifier: optional<string>
+      dimension: optional<string>
+      quantity: optional<integer>
+      timestamp: optional<string>
+      usageAllocations: optional<list<UsageAllocation>>
+  
+  UsageAllocation:
+    properties:
+      allocatedUsageQuantity: optional<integer>
+      tags: optional<list<Tag>>
+  Tag:
+    properties:
+      key: optional<string>
+      value: optional<string>
+  
+  BatchUsageEventOkResponse:
+    properties:
+      count: optional<integer>
+      result: optional<list<UsageBatchEventOkMessage>>
+  
+  UsageBatchEventOkMessage:
+    properties:
+      dimension: optional<string>
+      effectiveStartTime: optional<string>
+      error: optional<UsageEventConflictResponse>
+      messageTime: optional<string>
+      planId: optional<string>
+      quantity: optional<double>
+      resourceId: optional<string>
+      resourceUri: optional<string>
+      status: optional<string>
+      usageEventId: optional<string>
+  
+  UsageEventConflictResponse:
+    properties:
+      additionalInfo: optional<UsageEventConflictResponseAdditionalInfo>
+      code: optional<string>
+      message: optional<string>
+  
+  UsageEventConflictResponseAdditionalInfo:
+    properties:
+      acceptedMessage: optional<UsageEventOkResponse>
+  
+  UsageEventOkResponse:
+    properties:
+      dimension: optional<string>
+      effectiveStartTime: optional<string>
+      messageTime: optional<string>
+      planId: optional<string>
+      quantity: optional<double>
+      resourceId: optional<string>
+      resourceUri: optional<string>
+      status: optional<string>
+      usageEventId: optional<string>
+  
+  ReportResponse:
+    properties:
+      header: optional<Header>
+      httpstatusCode: optional<integer>
+      reportErrors: optional<list<ReportError>>
+      serviceConfigId: optional<string>
+      serviceRolloutId: optional<string>
+  
+  Header: map<string, list<string>>
+      
+  ReportError:
+    properties:
+      operationId: optional<string>
+      status: optional<Status>
+  
+  Status:
+    properties:
+      code: optional<integer>
+      details: optional<list<list<integer>>>
+      message: optional<string>
+  
+  IdentityIntegration:
+    properties:
+      createdBy: optional<string>
+      creationTime: optional<string>
+      info: optional<IntegrationInfo>
+      lastUpdateTime: optional<string>
+      lastUpdatedBy: optional<string>
+      organizationID: optional<string>
+      partner: optional<string>
+      service: optional<string>
+      status: optional<string>
+  
+  IntegrationInfo:
+    properties:
+      awsIntegration: optional<AwsIntegration>
+      azureIntegration: optional<AzureIntegration>
+      gcpIntegration: optional<GcpIntegration>
+  
+  AwsIntegration:
+    docs: >-
+      The data struct to store integration info for Suger service to access the
+      client's AWS services.
+    properties:
+      externalID: optional<string>
+      iamRoleArn: optional<string>
+      marketplaceStartDate: optional<string>
+      mcasFullSyncDone: optional<boolean>
+      mcasIamRoleArn: optional<string>
+      mcasS3Bucket: optional<string>
+      mcasSnsTopic: optional<string>
+      mdfsFullSyncDone: optional<boolean>
+      mdfsKmsKeyArn: optional<string>
+      mdfsS3BucketArn: optional<string>
+      policyArns: optional<list<string>>
+  
+  AzureIntegration:
+    properties:
+      cmaFullSyncDone: optional<boolean>
+      credential: optional<AzureCredential>
+  
+  AzureCredential:
+    properties:
+      clientID: optional<string>
+      clientSecret: optional<string>
+      clientSecretKey: optional<string>
+      resourceID: optional<string>
+      tenantID: optional<string>
+  
+  GcpIntegration:
+    properties:
+      gcpProjectId: optional<string>
+      gcpProjectNumber: optional<string>
+      identityProviderId: optional<string>
+      partnerId: optional<string>
+      pubsubTopic: optional<string>
+      reportBucket: optional<string>
+      reportFullSyncDone: optional<boolean>
+      reportStartDate: optional<string>
+      serviceAccountEmail: optional<string>
+      serviceNames: optional<list<string>>
+      workloadIdentityPoolId: optional<string>
+  
+  WorkloadOffer:
+    properties:
+      createdBy: optional<string>
+      creationTime: optional<string>
+      endTime: optional<string>
+      expireTime: optional<string>
+      externalID: optional<string>
+      id: optional<string>
+      info: optional<OfferInfo>
+      lastUpdateTime: optional<string>
+      lastUpdatedBy: optional<string>
+      name: optional<string>
+      offerType: optional<string>
+      organizationID: optional<string>
+      partner: optional<string>
+      productID: optional<string>
+      service: optional<string>
+      status: optional<string>
+  
+  OfferInfo:
+    properties:
+      azureProductVariant: optional<AzureProductVariant>
+      baseAgreementId: optional<string>
+      buyerAwsAccountIds: optional<list<string>>
+      buyerAzureTenants: optional<list<AzureAudience>>
+      commits: optional<list<CommitDimension>>
+      currency: optional<string>
+      dimensions: optional<list<MeteringDimension>>
+      discount: optional<double>
+      eulaType: optional<string>
+      eulaUrl: optional<string>
+      gcpMetrics: optional<list<GcpCommerceProducerPurchaseMetric>>
+      gcpPlans: optional<list<GcpPurchasePlan>>
+      isAgreementBasedOffer: optional<boolean>
+      paymentInstallments: optional<list<PaymentInstallment>>
+      refundCancelationPolicy: optional<string>
+      sellerNotes: optional<string>
+      visibility: optional<string>
+  
+  AzureProductVariant:
+    properties:
+      azureGovernmentCertifications: optional<list<AzureGovernmentCertification>>
+      cloudAvailabilities: optional<list<string>>
+      conversionPaths: optional<string>
+      extendedProperties: optional<list<TypeValue>>
+      externalID: optional<string>
+      featureAvailabilities: optional<list<AzureProductFeatureAvailability>>
+      friendlyName: optional<string>
+      id: optional<string>
+      leadGenID: optional<string>
+      referenceVariantID: optional<string>
+      resourceType: optional<string>
+      state: optional<string>
+  
+  AzureGovernmentCertification:
+    properties:
+      title: optional<string>
+      uri: optional<string>
+      validationResults: optional<list<AzureValidationResult>>
+  
+  AzureValidationResult:
+    properties:
+      errorMessage: optional<string>
+      memberNames: optional<list<string>>
+  
+  TypeValue:
+    properties:
+      type: optional<string>
+      value: optional<string>
+  
+  AzureProductFeatureAvailability:
+    properties:
+      customMeters: optional<list<AzureProductVariantCustomMeter>>
+      id: optional<string>
+      isHidden: optional<boolean>
+      marketStates: optional<list<AzureMarketState>>
+      markets: optional<list<AzureMarket>>
+      priceSchedules: optional<list<AzureProductVariantPriceSchedule>>
+      properties: optional<list<TypeValue>>
+      resourceType: optional<string>
+      subscriptionAudiences: optional<list<AzureAudience>>
+      tenantAudiences: optional<list<AzureAudience>>
+      trial: optional<AzureProductVariantTrial>
+      visibility: optional<string>
+  
+  AzureProductVariantCustomMeter:
+    properties:
+      displayName: optional<string>
+      id: optional<string>
+      includedBaseQuantities: optional<list<IncludedBaseQuantity>>
+      isEnabled: optional<boolean>
+      priceInUsd: optional<double>
+      uniqueID: optional<string>
+      unitOfMeasure: optional<string>
+  
+  AzureMarketState:
+    properties:
+      marketCode: optional<string>
+      state: optional<string>
+  
+  AzureMarket:
+    properties:
+      friendlyName: optional<string>
+      marketCode: optional<string>
+  
+  AzureProductVariantPriceSchedule:
+    properties:
+      dateTimeRange: optional<AzureLocalizedTimeRange>
+      friendlyName: optional<string>
+      isBaseSchedule: optional<boolean>
+      marketCodes: optional<list<string>>
+      schedules: optional<list<AzurePriceSchedule>>
+  
+  AzureLocalizedTimeRange:
+    properties:
+      endAt: optional<AzureLocalizedDateTime>
+      startAt: optional<AzureLocalizedDateTime>
+  
+  AzureLocalizedDateTime:
+    properties:
+      dateTimeInUtc: optional<string>
+      localizePerMarket: optional<boolean>
+  
+  AzurePriceSchedule:
+    properties:
+      priceCadence: optional<AzurePriceCadence>
+      pricingModel: optional<string>
+      pricingUnits: optional<list<AzurePricingUnit>>
+      retailPrice: optional<AzurePrice>
+  
+  AzurePriceCadence:
+    properties:
+      type: optional<string>
+      value: optional<integer>
+  
+  AzurePricingUnit:
+    properties:
+      isUnlimitedUnit: optional<boolean>
+      lowerUnit: optional<integer>
+      name: optional<string>
+      unitType: optional<string>
+      upperUnit: optional<integer>
+  
+  AzurePrice:
+    properties:
+      currencyCode: optional<string>
+      openPrice: optional<double>
+      priceTierID: optional<string>
+  
+  AzureAudience:
+    properties:
+      description: optional<string>
+      id: optional<string>
+  
+  AzureProductVariantTrial:
+    properties:
+      dateTimeRange: optional<AzureLocalizedTimeRange>
+      duration: optional<integer>
+      durationType: optional<string>
+      type: optional<string>
+  
+  GcpCommerceProducerPurchaseMetric:
+    properties:
+      description: optional<string>
+      displayName: optional<string>
+      displayUnit: optional<string>
+      displayUnitDescription: optional<string>
+      id: optional<string>
+      metricKind: optional<string>
+      name: optional<string>
+      reportingUnit: optional<string>
+      unit: optional<string>
+      valueType: optional<string>
+  
+  WorkloadProduct:
+    properties:
+      createdBy: optional<string>
+      creationTime: optional<string>
+      externalID: optional<string>
+      fulfillmentUrl: optional<string>
+      id: optional<string>
+      info: optional<ProductInfo>
+      lastUpdateTime: optional<string>
+      lastUpdatedBy: optional<string>
+      name: optional<string>
+      organizationID: optional<string>
+      partner: optional<string>
+      productType: optional<string>
+      service: optional<string>
+      status: optional<string>
+  
+  ProductInfo:
+    properties:
+      awsSaasProduct: optional<AwsSaasProduct>
+      awsSnsSubscriptions: optional<list<AwsSnsSubscription>>
+      azureProduct: optional<AzureProduct>
+      commits: optional<list<CommitDimension>>
+      currency: optional<string>
+      dimensions: optional<list<MeteringDimension>>
+      eulaUrl: optional<string>
+      gcpProduct: optional<GcpProduct>
+      refundCancelationPolicy: optional<string>
+      sellerNotes: optional<string>
+  
+  AwsSaasProduct:
+    properties:
+      Description: optional<AwsSaasProductDescription>
+      Dimensions: optional<list<AwsSaasProductDimension>>
+      PromotionalResources: optional<AwsSaasProductPromotionalResources>
+      SupportInformation: optional<AwsSaasProductSupportInformation>
+      Versions: optional<list<AwsSaasProductVersion>>
+      dataFeedProductId: optional<string>
+      productId: optional<string>
+  
+  AwsSaasProductDescription:
+    properties:
+      AssociatedProducts: optional<string>
+      Categories: optional<list<string>>
+      EuW8Submitted: optional<boolean>
+      Highlights: optional<list<string>>
+      LongDescription: optional<string>
+      Manufacturer: optional<string>
+      ProductCode: optional<string>
+      ProductTitle: optional<string>
+      Registered: optional<boolean>
+      SearchKeywords: optional<list<string>>
+      ShortDescription: optional<string>
+      Sku: optional<string>
+      UsW9Submitted: optional<boolean>
+      Visibility: optional<string>
+  
+  AwsSaasProductDimension:
+    properties:
+      Description: optional<string>
+      Key: optional<string>
+      Name: optional<string>
+      Types: optional<list<string>>
+      Unit: optional<string>
+  
+  AwsSaasProductPromotionalResources:
+    properties:
+      AdditionalResources: optional<list<AwsSaasProductAdditionalResource>>
+      LogoUrl: optional<string>
+  
+  AwsSaasProductAdditionalResource:
+    properties:
+      Text: optional<string>
+      Type: optional<string>
+      Url: optional<string>
+  
+  AwsSaasProductSupportInformation:
+    properties:
+      Description: optional<string>
+  
+  AwsSaasProductVersion:
+    properties:
+      DeliveryOptions: optional<list<AwsSaasProductDeliveryOption>>
+      Id: optional<string>
+  
+  AwsSaasProductDeliveryOption:
+    properties:
+      FulfillmentUrl: optional<string>
+      Id: optional<string>
+      Type: optional<string>
+  
+  AwsSnsSubscription:
+    properties:
+      Endpoint: optional<string>
+      Protocol: optional<string>
+      Status: optional<string>
+      SubscriptionArn: optional<string>
+      TopicArn: optional<string>
+  
+  AzureProduct:
+    properties:
+      availabilities: optional<list<AzureProductAvailability>>
+      branches: optional<list<AzureProductBranch>>
+      externalIDs: optional<list<TypeValue>>
+      id: optional<string>
+      isModularPublishing: optional<boolean>
+      listings: optional<list<AzureProductListing>>
+      name: optional<string>
+      packageConfigurations: optional<list<AzureProductPackageConfiguration>>
+      properties: optional<list<AzureProductProperty>>
+      resourceType: optional<string>
+      setup: optional<AzureProductSetup>
+      submissions: optional<list<AzureProductSubmission>>
+      variants: optional<list<AzureProductVariant>>
+  
+  AzureProductAvailability:
+    properties:
+      emailAudiences: optional<list<AzureAudience>>
+      enterpriseLicensing: optional<string>
+      id: optional<string>
+      resourceType: optional<string>
+      subscriptionAudiences: optional<list<AzureAudience>>
+      visibility: optional<string>
+  
+  AzureProductBranch:
+    properties:
+      currentDraftInstanceID: optional<string>
+      friendlyName: optional<string>
+      id: optional<string>
+      module: optional<string>
+      resourceType: optional<string>
+      type: optional<string>
+      variantID: optional<string>
+  
+  AzureProductListing:
+    properties:
+      accessInformation: optional<string>
+      assets: optional<list<AzureProductListingAsset>>
+      compatibleProducts: optional<list<string>>
+      description: optional<string>
+      gettingStartedInstructions: optional<string>
+      id: optional<string>
+      keywords: optional<list<string>>
+      languageCode: optional<string>
+      listingContacts: optional<list<AzureListingContact>>
+      listingUris: optional<list<AzureListingUri>>
+      productDisplayName: optional<string>
+      publisherName: optional<string>
+      resourceType: optional<string>
+      shortDescription: optional<string>
+      summary: optional<string>
+      title: optional<string>
+  
+  AzureProductListingAsset:
+    properties:
+      description: optional<string>
+      fileName: optional<string>
+      fileSasUri: optional<string>
+      friendlyName: optional<string>
+      id: optional<string>
+      order: optional<integer>
+      publisherDefinedSasUri: optional<string>
+      resourceType: optional<string>
+      state: optional<string>
+      type: optional<string>
+  
+  AzureListingContact:
+    properties:
+      email: optional<string>
+      name: optional<string>
+      phone: optional<string>
+      type: optional<string>
+      uri: optional<string>
+  
+  AzureListingUri:
+    properties:
+      displayText: optional<string>
+      subtype: optional<string>
+      type: optional<string>
+      uri: optional<string>
+  
+  AzureProductPackageConfiguration:
+    properties:
+      azureActiveDirectoryApplicationID: optional<string>
+      azureActiveDirectoryTenantID: optional<string>
+      connectionWebhook: optional<string>
+      id: optional<string>
+      landingPageUri: optional<string>
+      resourceType: optional<string>
+  
+  AzureProductProperty:
+    properties:
+      additionalCategories: optional<list<string>>
+      appVersion: optional<string>
+      applicableProducts: optional<list<string>>
+      categories: optional<list<string>>
+      customAmendments: optional<list<string>>
+      extendedProperties: optional<list<string>>
+      globalAmendmentTerms: optional<string>
+      hideKeys: optional<list<string>>
+      id: optional<string>
+      industries: optional<list<string>>
+      marketingOnlyChange: optional<boolean>
+      productTags: optional<list<string>>
+      resourceType: optional<string>
+      submissionVersion: optional<string>
+      termsOfUse: optional<string>
+      useEnterpriseContract: optional<boolean>
+  
+  AzureProductSetup:
+    properties:
+      callToAction: optional<string>
+      channelStates: optional<list<TypeValue>>
+      enableTestDrive: optional<boolean>
+      resourceType: optional<string>
+      sellingOption: optional<string>
+      testDriveType: optional<string>
+      trialUri: optional<string>
+  
+  AzureProductSubmission:
+    properties:
+      areResourcesReady: optional<boolean>
+      friendlyName: optional<string>
+      id: optional<string>
+      pendingUpdateInfo: optional<AzurePendingUpdateInfo>
+      publishedTimeInUtc: optional<string>
+      releaseNumber: optional<integer>
+      resourceType: optional<string>
+      resources: optional<list<TypeValue>>
+      state: optional<string>
+      subState: optional<string>
+      targets: optional<list<TypeValue>>
+      variantResources: optional<list<AzureVariantResource>>
+  
+  AzurePendingUpdateInfo:
+    properties:
+      status: optional<string>
+      updateType: optional<string>
+  
+  AzureVariantResource:
+    properties:
+      resources: optional<list<TypeValue>>
+      variantID: optional<string>
+  
+  GcpProduct:
+    properties:
+      createTime: optional<string>
+      id: optional<string>
+      listingSpec: optional<GcpCommerceProducerListingSpec>
+      marketplace: optional<string>
+      name: optional<string>
+      service: optional<string>
+      serviceConfig: optional<GcpCommerceProducerServiceConfig>
+  
+  GcpCommerceProducerListingSpec:
+    properties:
+      externalAccountSpec: optional<GcpCommerceProducerExternalAccountSpec>
+      listingType: optional<string>
+      marketingSpec: optional<GcpCommerceProducerMarketingSpec>
+      purchaseSpec: optional<GcpCommerceProducerPurchaseSpec>
+  
+  GcpCommerceProducerExternalAccountSpec:
+    properties:
+      loginUri: optional<string>
+      signupUri: optional<string>
+      singleSignOnUri: optional<string>
+  
+  GcpCommerceProducerMarketingSpec:
+    properties:
+      description: optional<string>
+      displayNames: optional<list<string>>
+      eulaUrl: optional<string>
+      externalMarketingUrl: optional<string>
+      icon: optional<string>
+      searchCategories: optional<list<string>>
+      searchDescription: optional<string>
+      searchKeywords: optional<list<string>>
+      shortTitle: optional<string>
+      supportSpec: optional<GcpCommerceProducerSupportSpec>
+      title: optional<string>
+  
+  GcpCommerceProducerSupportSpec:
+    properties:
+      description: optional<string>
+      email: optional<string>
+      uri: optional<string>
+  
+  GcpCommerceProducerPurchaseSpec:
+    properties:
+      metrics: optional<list<GcpCommerceProducerPurchaseMetric>>
+      purchaseOptionSpecs: optional<list<GcpPurchasePlan>>
+  
+  GcpCommerceProducerServiceConfig:
+    properties:
+      billing: optional<GcpCommerceProducerServiceBilling>
+      metrics: optional<list<GcpCommerceProducerPurchaseMetric>>
+      name: optional<string>
+      producerProjectId: optional<string>
+      title: optional<string>
+  
+  GcpCommerceProducerServiceBilling:
+    properties:
+      metrics: optional<list<string>>
+  
+  RevenueRecord:
+    properties:
+      amount: optional<double>
+      date: optional<string>
+  
+  Metadata: 
+    type: unknown
