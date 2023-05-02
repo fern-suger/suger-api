@@ -1,6 +1,0 @@
-name: api
-display-name: Suger API
-auth: bearer
-default-environment: Production
-environments: 
-  Production: http://www.suger.io
