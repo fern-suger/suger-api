@@ -4597,7 +4597,7 @@
           "description": "Metadata pertaining to the operation's result.",
           "allOf": [
             {
-              "$ref": "#/definitions/middleware.Metadata"
+              "$ref": "#/definitions/MiddlewareMetadata"
             }
           ]
         },
@@ -4617,7 +4617,7 @@
         }
       }
     },
-    "middleware.Metadata": {
+    "MiddlewareMetadata": {
       "type": "object"
     },
     "servicecontrol.ReportError": {
