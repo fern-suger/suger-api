@@ -2,18 +2,8 @@ default-group: external
 groups:
   external:
     generators:
-      - name: fernapi/fern-typescript-sdk
-        version: 0.5.17
-        output:
-          location: npm
-          package-name: '@fern-api/suger'
-          token: ${FERN_NPM_TOKEN}
-        github:
-          repository: fern-suger/suger-node
-        config: 
-          namespaceExport: Suger
       - name: fernapi/fern-java-sdk
-        version: 0.3.1
+        version: 0.3.3
         output:
           location: maven
           coordinate: io.github.fern-api:suger
