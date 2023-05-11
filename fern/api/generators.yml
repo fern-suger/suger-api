@@ -3,7 +3,7 @@ groups:
   external:
     generators:
       - name: fernapi/fern-java-sdk
-        version: 0.3.3
+        version: 0.3.4
         output:
           location: maven
           coordinate: io.github.fern-api:suger
