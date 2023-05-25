@@ -10,4 +10,4 @@ groups:
           username: ${FERN_MAVEN_USERNAME}
           password: ${FERN_MAVEN_TOKEN}
         github:
-          repository: fern-suger/suger-java 
+          repository: sugerio/suger-sdk-java 
