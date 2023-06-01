@@ -3,11 +3,11 @@ groups:
   external:
     generators:
       - name: fernapi/fern-java-sdk
-        version: 0.3.4
+        version: 0.3.5
         output:
           location: maven
           coordinate: io.github.fern-api:suger
           username: ${FERN_MAVEN_USERNAME}
           password: ${FERN_MAVEN_TOKEN}
         github:
-          repository: fern-suger/suger-java 
+          repository: sugerio/suger-sdk-java 
